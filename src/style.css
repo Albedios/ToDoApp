@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --gradient-speed: 15s;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2;
+  }
+  
+  .btn-primary {
+    @apply btn bg-gradient-primary text-white hover:opacity-90 hover:scale-105 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply btn border-2 border-primary-purple text-primary-purple hover:bg-primary-purple hover:text-white;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary-purple focus:outline-none transition-all duration-300;
+  }
+
+  .todo-card {
+    @apply p-4 rounded-xl bg-white/80 backdrop-blur-sm shadow-md transition-all duration-300;
+  }
+
+  .todo-card:not(.editing):hover {
+    @apply shadow-lg scale-[1.02] bg-white/90;
+  }
+
+  .geometric-background {
+    @apply fixed inset-0 -z-10 overflow-hidden;
+    background: linear-gradient(45deg, #8B5CF6, #F6B05C, #9F7AEA);
+    background-size: 400% 400%;
+    animation: gradient var(--gradient-speed) ease infinite;
+  }
+
+  .geometric-shape {
+    @apply absolute rounded-full mix-blend-multiply filter blur-xl opacity-70;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                filter 0.3s ease,
+                opacity 0.3s ease;
+  }
+
+  .geometric-shape:hover {
+    @apply opacity-90 blur-lg;
+    filter: hue-rotate(45deg) brightness(1.1);
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes slideOutFade {
+  0% { 
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    max-height: 500px;
+    margin-bottom: 1rem;
+  }
+  50% {
+    transform: translateX(-30px) scale(0.95);
+    opacity: 0.5;
+  }
+  100% { 
+    transform: translateX(-60px) scale(0.9);
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.todo-new {
+  animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.todo-delete {
+  animation: slideOutFade 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.editing {
+  @apply ring-2 ring-primary-purple ring-opacity-50;
+}
+
+/* Icon styles */
+.ph {
+  @apply inline-block align-middle;
+}
+
+/* Geometric shapes */
+.geometric-circle {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+}
+
+.geometric-triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  width: 300px;
+  height: 300px;
+}
+
+.geometric-hexagon {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  width: 200px;
+  height: 200px;
+}
+
+/* Button hover effects */
+.btn-primary:hover {
+  animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Todo card hover effects */
+.todo-card .toggle-todo {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.todo-card .toggle-todo:hover {
+  transform: scale(1.1);
+}
